@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanStyle | Каталог</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Syne:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a3f54;
+            --secondary: #f5f7fa;
+            --accent: #4a6fa5;
+            --light-gray: #e8eef4;
+            --dark-gray: #5a6d80;
+            --text: #34495e;
+            --text-light: #7f8c8d;
+            --border: #d6e0e9;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--secondary);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(245, 247, 250, 0.98);
+            backdrop-filter: blur(12px);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .scrolled {
+            padding: 0.8rem 5%;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            margin-left: 2rem;
+            font-size: 1.2rem;
+            color: var(--text);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .cart-icon:hover {
+            color: var(--accent);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 700;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 8rem 5% 4rem;
+            background: white;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .breadcrumbs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumbs a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .breadcrumbs a:hover {
+            color: var(--accent);
+        }
+
+        .breadcrumbs span {
+            margin: 0 0.5rem;
+            color: var(--text-light);
+        }
+
+        /* Catalog Section */
+        .catalog {
+            padding: 4rem 5%;
+            background: white;
+        }
+
+        .catalog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .catalog-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .sorting {
+            display: flex;
+            align-items: center;
+        }
+
+        .sorting label {
+            margin-right: 1rem;
+            font-weight: 500;
+        }
+
+        .sorting select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            background: white;
+            font-family: 'Manrope', sans-serif;
+            transition: var(--transition);
+        }
+
+        .sorting select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .clothing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .clothing-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid var(--border);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .clothing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .clothing-img {
+            height: 380px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .clothing-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.03));
+            z-index: 1;
+        }
+
+        .clothing-img img {
+            max-width: 100%;
+            max-height: 320px;
+            transition: var(--transition);
+            object-fit: contain;
+            position: relative;
+            z-index: 2;
+        }
+
+        .clothing-card:hover .clothing-img img {
+            transform: scale(1.05);
+        }
+
+        .clothing-info {
+            padding: 1.8rem;
+            text-align: center;
+        }
+
+        .clothing-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .clothing-category {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .clothing-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .clothing-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 3;
+            box-shadow: 0 3px 10px rgba(74, 111, 165, 0.3);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 4rem;
+        }
+
+        .pagination a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            margin: 0 0.5rem;
+            border-radius: 50%;
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .pagination a.active, .pagination a:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Sidebar */
+        .catalog-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+            height: fit-content;
+        }
+
+        .sidebar-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .filter-group {
+            margin-bottom: 2rem;
+        }
+
+        .filter-group h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .filter-options {
+            list-style: none;
+        }
+
+        .filter-options li {
+            margin-bottom: 0.5rem;
+        }
+
+        .filter-options label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .filter-options label:hover {
+            color: var(--accent);
+        }
+
+        .filter-options input {
+            margin-right: 0.5rem;
+        }
+
+        .price-range {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .price-values {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+        }
+
+        .price-values span {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .apply-filters {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .apply-filters:hover {
+            background: #3a5a80;
+            box-shadow: 0 5px 15px rgba(74, 111, 165, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 6rem 5% 2rem;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-column h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            letter-spacing: -0.5px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            bottom: -10px;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(74, 111, 165, 0.3);
+        }
+
+        .newsletter-form {
+            margin-top: 1.5rem;
+        }
+
+        .newsletter-form input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-family: 'Manrope', sans-serif;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .newsletter-form button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .newsletter-form button:hover {
+            background: #3a5a80;
+            box-shadow: 0 5px 15px rgba(74, 111, 165, 0.3);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .catalog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .catalog-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .sorting {
+                margin-top: 1rem;
+                width: 100%;
+            }
+            
+            .sorting select {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .clothing-img {
+                height: 320px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .clothing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();
+       for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+       ym(102291977, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true
+       });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/102291977" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <header id="header">
+        <a href="index.html" class="logo"><i class="fas fa-tshirt logo-icon"></i>URBAN<span>STYLE</span></a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="catalog.html" class="active">Каталог</a></li>
+                <li><a href="#">Новинки</a></li>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Контакты</a></li>
+            </ul>
+            <a href="#" class="cart-icon"><i class="fas fa-shopping-bag"></i><span class="cart-count">3</span></a>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <div class="breadcrumbs">
+            <a href="index.html">Главная</a>
+            <span>/</span>
+            <a href="catalog.html">Каталог</a>
+        </div>
+        <h1>Каталог товаров</h1>
+    </section>
+
+    <section class="catalog">
+        <div class="catalog-container">
+            <aside class="sidebar">
+                <h2 class="sidebar-title">Фильтры</h2>
+                
+                <div class="filter-group">
+                    <h3>Категории</h3>
+                    <ul class="filter-options">
+                        <li>
+                            <label>
+                                <input type="checkbox" checked> Все товары
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"> Мужская одежда
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"> Женская одежда
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"> Аксессуары
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"> Новинки
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="filter-group">
+                    <h3>Цена</h3>
+                    <input type="range" class="price-range" min="0" max="50000" value="10000">
+                    <div class="price-values">
+                        <span>0 ₽</span>
+                        <span>50 000 ₽</span>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <h3>Размер</h3>
+                    <ul class="filter-options">
+                        <li>
+                            <label>
+                                <input type="checkbox"> XS
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"> S
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"> M
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"> L
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"> XL
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                
+                <button class="apply-filters">Применить фильтры</button>
+            </aside>
+            
+            <main>
+                <div class="catalog-header">
+                    <h2 class="catalog-title">Все товары</h2>
+                    <div class="sorting">
+                        <label for="sort">Сортировка:</label>
+                        <select id="sort">
+                            <option value="popular">По популярности</option>
+                            <option value="price-low">От дешевых к дорогим</option>
+                            <option value="price-high">От дорогих к дешевым</option>
+                            <option value="new">Новинки</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="clothing-grid">
+                    <div class="clothing-card">
+                        <div class="clothing-badge">Новинка</div>
+                        <div class="clothing-img">
+                            <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Мужская рубашка">
+                        </div>
+                        <div class="clothing-info">
+                            <h3 class="clothing-name">Рубашка Oxford</h3>
+                            <div class="clothing-category">Мужская одежда</div>
+                            <div class="clothing-price">4 990 ₽</div>
+                            <a href="#" class="btn">В корзину</a>
+                        </div>
+                    </div>
+                    
+                    <div class="clothing-card">
+                        <div class="clothing-img">
+                            <img src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1025&q=80" alt="Мужские брюки">
+                        </div>
+                        <div class="clothing-info">
+                            <h3 class="clothing-name">Брюки Classic</h3>
+                            <div class="clothing-category">Мужская одежда</div>
+                            <div class="clothing-price">5 790 ₽</div>
+                            <a href="#" class="btn">В корзину</a>
+                        </div>
+                    </div>
+                    
+                    <div class="clothing-card">
+                        <div class="clothing-badge">Со скидкой</div>
+                        <div class="clothing-img">
+                            <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Женский жакет">
+                        </div>
+                        <div class="clothing-info">
+                            <h3 class="clothing-name">Жакет Modern</h3>
+                            <div class="clothing-category">Женская одежда</div>
+                            <div class="clothing-price">8 990 ₽</div>
+                            <a href="#" class="btn">В корзину</a>
+                        </div>
+                    </div>
+                    
+                    <div class="clothing-card">
+                        <div class="clothing-img">
+                            <img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Женское платье">
+                        </div>
+                        <div class="clothing-info">
+                            <h3 class="clothing-name">Платье Elegant</h3>
+                            <div class="clothing-category">Женская одежда</div>
+                            <div class="clothing-price">6 490 ₽</div>
+                            <a href="#" class="btn">В корзину</a>
+                        </div>
+                    </div>
+                    
+                    <div class="clothing-card">
+                        <div class="clothing-badge">Новинка</div>
+                        <div class="clothing-img">
+                            <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=695&q=80" alt="Мужская куртка">
+                        </div>
+                        <div class="clothing-info">
+                            <h3 class="clothing-name">Куртка Urban</h3>
+                            <div class="clothing-category">Мужская одежда</div>
+                            <div class="clothing-price">12 990 ₽</div>
+                            <a href="#" class="btn">В корзину</a>
+                        </div>
+                    </div>
+                    
+                    <div class="clothing-card">
+                        <div class="clothing-img">
+                            <img src="https://images.unsplash.com/photo-1543076447-215ad9ba6923?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Женская блузка">
+                        </div>
+                        <div class="clothing-info">
+                            <h3 class="clothing-name">Блузка Silk</h3>
+                            <div class="clothing-category">Женская одежда</div>
+                            <div class="clothing-price">5 290 ₽</div>
+                            <a href="#" class="btn">В корзину</a>
+                        </div>
+                    </div>
+                    
+                    <div class="clothing-card">
+                        <div class="clothing-badge">Со скидкой</div>
+                        <div class="clothing-img">
+                            <img src="https://images.unsplash.com/photo-1595341595379-cf0ff033ce9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Мужские джинсы">
+                        </div>
+                        <div class="clothing-info">
+                            <h3 class="clothing-name">Джинсы Slim</h3>
+                            <div class="clothing-category">Мужская одежда</div>
+                            <div class="clothing-price">7 490 ₽</div>
+                            <a href="#" class="btn">В корзину</a>
+                        </div>
+                    </div>
+                    
+                    <div class="clothing-card">
+                        <div class="clothing-img">
+                            <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=686&q=80" alt="Женская юбка">
+                        </div>
+                        <div class="clothing-info">
+                            <h3 class="clothing-name">Юбка Midi</h3>
+                            <div class="clothing-category">Женская одежда</div>
+                            <div class="clothing-price">4 790 ₽</div>
+                            <a href="#" class="btn">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pagination">
+                    <a href="#">&laquo;</a>
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">&raquo;</a>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>URBAN STYLE</h3>
+                <p>Мы создаем одежду для тех, кто ценит стиль, качество и индивидуальность. Наша миссия - вдохновлять вас на новые свершения.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Каталог</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Мужская одежда</a></li>
+                    <li><a href="#">Женская одежда</a></li>
+                    <li><a href="#">Новая коллекция</a></li>
+                    <li><a href="#">Аксессуары</a></li>
+                    <li><a href="#">Распродажа</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Помощь</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Доставка и оплата</a></li>
+                    <li><a href="#">Возврат и обмен</a></li>
+                    <li><a href="#">Таблица размеров</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Контакты</h3>
+                <ul class="footer-links">
+                    <li>Москва, ул. Арбат, 25</li>
+                    <li>+7 (495) 765-43-21</li>
+                    <li>info@urbanstyle.ru</li>
+                    <li>Ежедневно: 10:00 - 21:00</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 URBAN STYLE. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Анимация элементов при прокрутке
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            document.querySelectorAll('.clothing-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // Изменение хедера при прокрутке
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Фильтрация товаров
+            const applyFiltersBtn = document.querySelector('.apply-filters');
+            if (applyFiltersBtn) {
+                applyFiltersBtn.addEventListener('click', () => {
+                    // Здесь можно добавить логику фильтрации товаров
+                    alert('Фильтры применены!');
+                });
+            }
+
+            // Сортировка товаров
+            const sortSelect = document.getElementById('sort');
+            if (sortSelect) {
+                sortSelect.addEventListener('change', () => {
+                    // Здесь можно добавить логику сортировки товаров
+                    alert('Товары отсортированы!');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
