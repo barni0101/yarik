@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanStyle - Премиальная одежда</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: linear-gradient(135deg, #e8eef4 0%, #f5f7fa 100%);
+            color: #2a3f54;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .ad-landing {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .content {
+            flex: 1;
+            z-index: 2;
+        }
+        
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #2a3f54;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: #4a6fa5;
+        }
+        
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        
+        h1 span {
+            color: #4a6fa5;
+            position: relative;
+        }
+        
+        h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(74, 111, 165, 0.2);
+            z-index: -1;
+        }
+        
+        p {
+            font-size: 18px;
+            color: #5a6d80;
+            margin-bottom: 40px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 18px 40px;
+            background: #4a6fa5;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border: 2px solid #4a6fa5;
+        }
+        
+        .btn:hover {
+            background: transparent;
+            color: #4a6fa5;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(74, 111, 165, 0.2);
+        }
+        
+        .product-showcase {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 50%;
+            height: 80%;
+            background: url('https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80') center/cover no-repeat;
+            border-top-left-radius: 200px;
+            z-index: 1;
+        }
+        
+        @media (max-width: 992px) {
+            .ad-landing {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .content {
+                margin-top: 100px;
+            }
+            
+            h1 {
+                font-size: 36px;
+            }
+            
+            p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .product-showcase {
+                position: relative;
+                width: 100%;
+                height: 300px;
+                margin-top: 40px;
+                border-radius: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ad-landing">
+        <div class="content animate__animated animate__fadeInLeft">
+            <div class="logo">URBAN<span>STYLE</span></div>
+            <h1>Создай свой <span>уникальный</span> стиль</h1>
+            <p>Премиальная одежда для тех, кто ценит качество и индивидуальность. Откройте для себя новые коллекции сезона.</p>
+            <a href="https://barni0101.github.io/yarik/" class="btn animate__animated animate__pulse animate__infinite">Перейти в магазин</a>
+        </div>
+        
+        <div class="product-showcase animate__animated animate__fadeIn"></div>
+    </div>
+</body>
+</html>
